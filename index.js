@@ -25,7 +25,8 @@ app.post("/api/upload",upload.single("picture"),(req,res)=>{
     console.log("req.file: ",req.file.path);
     res.status(201).json({
         status:"success",
-        message:"file upload successfully"
+        message:"file upload successfully",
+        path:req.file.path
     })
 })
 
