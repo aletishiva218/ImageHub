@@ -23,14 +23,9 @@ const upload = multer({
     })
 })
 
-app.post("/api/upload",upload.single("picture"),(req,res)=>{
-    res.status(201).json({
-        status:"success",
-        message:"file upload successfully",
-        path:req.headers.host+"/"+req.file.path.split("/")[1]
-    })
+app.get("/",(req,res)=>{
+    res.json({hostname:req.headers.host,route:req.url}    )
 })
-
 
 
 app.get("/api",(req,res)=>{
@@ -41,9 +36,15 @@ app.get("/api",(req,res)=>{
     res.status(200).json({picturesPath});
 })
 
-app.get("/",(req,res)=>{
-    res.json({hostname:req.headers.host,route:req.url}    )
+app.post("/api/upload",upload.single("picture"),(req,res)=>{
+    res.status(201).json({
+        status:"success",
+        message:"file upload successfully",
+        path:req.headers.host+"/"+req.file.path.split("/")[1]
+    })
 })
+
+
 
 app.listen(port,()=>{
     console.log(`Server is started at port ${port}`)
