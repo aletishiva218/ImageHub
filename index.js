@@ -5,10 +5,11 @@ import fs from "fs";
 
 const port = 4000;
 
-
+const _dirname = path.resolve();
+const uploadFolder = path.join(_dirname,"uploads");
 
 const app = express();
-
+app.use(express.static(uploadFolder))
 const upload = multer({
     storage:multer.diskStorage({
         destination:(req,file,cb)=>{
@@ -28,8 +29,6 @@ app.post("/api/upload",upload.single("picture"),(req,res)=>{
     })
 })
 
-const _dirname = path.resolve();
-const uploadFolder = path.join(_dirname,"uploads");
 
 fs.mkdirSync(uploadFolder,{recursive:true})
 
