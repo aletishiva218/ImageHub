@@ -5,6 +5,8 @@ import fs from "fs";
 
 const port = 4000;
 
+
+
 const app = express();
 
 const upload = multer({
@@ -29,6 +31,7 @@ app.post("/api/upload",upload.single("picture"),(req,res)=>{
 const _dirname = path.resolve();
 const uploadFolder = path.join(_dirname,"uploads");
 
+fs.mkdirSync(uploadFolder,{recursive:true})
 
 app.get("/api",(req,res)=>{
     console.log(uploadFolder)
