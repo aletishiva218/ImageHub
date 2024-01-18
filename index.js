@@ -27,8 +27,7 @@ app.post("/api/upload",upload.single("picture"),(req,res)=>{
     res.status(201).json({
         status:"success",
         message:"file upload successfully",
-        path:req.file.path,
-        originanPath:path.join(uploadFolder,req.file.path)
+        path:req.headers.host+"/"+req.file.path.split("/")[1]
     })
 })
 
@@ -40,6 +39,10 @@ app.get("/api",(req,res)=>{
     let picturesPath = [];
     for(let picture of pictures) picturesPath.push(path.join(uploadFolder,picture))
     res.status(200).json({picturesPath});
+})
+
+app.get("/",(req,res)=>{
+    res.json({hostname:req.headers.host,route:req.url}    )
 })
 
 app.listen(port,()=>{
