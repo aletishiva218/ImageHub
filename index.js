@@ -7,9 +7,11 @@ const port = 4000;
 
 const _dirname = path.resolve();
 const uploadFolder = path.join(_dirname,"uploads");
+fs.mkdirSync(uploadFolder,{recursive:true})
 
 const app = express();
-app.use(express.static("uploads"))
+app.use(express.static(uploadFolder))
+
 const upload = multer({
     storage:multer.diskStorage({
         destination:(req,file,cb)=>{
@@ -22,16 +24,15 @@ const upload = multer({
 })
 
 app.post("/api/upload",upload.single("picture"),(req,res)=>{
-    console.log("req.file: ",req.file.path);
     res.status(201).json({
         status:"success",
         message:"file upload successfully",
-        path:req.file.path
+        path:req.file.path,
+        originanPath:path.join(uploadFolder,req.file.path)
     })
 })
 
 
-fs.mkdirSync(uploadFolder,{recursive:true})
 
 app.get("/api",(req,res)=>{
     console.log(uploadFolder)
