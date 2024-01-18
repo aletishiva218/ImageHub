@@ -9,7 +9,7 @@ const _dirname = path.resolve();
 const uploadFolder = path.join(_dirname,"uploads");
 
 const app = express();
-app.use(express.static(uploadFolder))
+app.use(express.static("uploads"))
 const upload = multer({
     storage:multer.diskStorage({
         destination:(req,file,cb)=>{
