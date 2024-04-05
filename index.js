@@ -32,7 +32,7 @@ app.get("/api",(req,res)=>{
     console.log(uploadFolder)
     let pictures = fs.readdirSync(uploadFolder);
     let picturesPath = [];
-    for(let picture of pictures) picturesPath.push(path.join(uploadFolder,picture))
+    for(let picture of pictures) picturesPath.push(req.headers.host+"/"+picture)
     res.status(200).json({picturesPath});
 })
 
