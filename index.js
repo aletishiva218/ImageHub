@@ -24,7 +24,8 @@ const upload = multer({
 })
 
 app.get("/",(req,res)=>{
-    res.json({hostname:req.headers.host,route:req.url}    )
+    // res.json({hostname:req.headers.host,route:req.url}    )
+    res.json({status:"Ok"})
 })
 
 
